@@ -1,0 +1,110 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #0a010e;
+}
+nav.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: transparent ; /* Bootstrap ka default background khatam karne ke liye */
+}
+.navbar-toggler-icon {
+    /* White karne ke liye */
+    filter:invert(); 
+    
+    /* Agar Gold/Yellow karna hai */
+    /* filter: invert(75%) sepia(80%) saturate(500%) hue-rotate(5deg); */
+}
+.signBtn{
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+.navbar ul li a{
+    color: #f8f9fa;
+    font-family: 'Poppin',sans-serif;
+}
+.navbar-brand{
+    font-family: 'Aquire', sans-serif;
+    font-size: 1.5rem;
+    color: #f8f9fa;
+}
+
+.hero {
+    position: relative;
+    width: 100%;           
+    min-height: 100vh;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('./images/galaxy.jpg');
+    background-size: cover;      
+    background-position: center; 
+    background-repeat: no-repeat;
+    overflow: hidden;         
+}
+.main-heading{
+    font-family: 'Aquire', sans-serif;
+    font-size: 3rem;
+    color: #f8f9fa;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-top: 0;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(138, 43, 226, 0.4);
+}
+.hero p {
+  color: #ccc;
+  font-size:1.5rem;
+  margin-bottom: 40px;
+  text-shadow: 0 0 10px purple;
+}
+.watch-img{
+    position: relative;
+    top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+    
+}
+.watch-img img{
+    width: auto;
+    height: 350px;
+}
+.watch2{
+     transform: translateY(-40px); 
+}
+.hero-btn .btn{
+    margin-top: 25px;
+    background: linear-gradient(1deg,rgba(26, 7, 38, 1) 0%, rgba(49, 11, 115, 1) 92%);gba(66, 13, 158, 1) 92%);
+    font-weight: 600;
+    letter-spacing: .3px;
+    filter: drop-shadow(0px 0px 5px rgb(175, 175, 224));
+    font-family: 'poppin' ,sans-serif;
+    text-transform: uppercase;
+    
+}
+.watch1 { 
+    filter:drop-shadow(0 0 20px rgba(184, 134, 11, 0.9))
+ } 
+.watch2 { 
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.9)); 
+} 
+.watch3 { 
+    filter: drop-shadow(0 0 20px rgba(60, 140, 167, 0.9)); 
+} 
+/* Har class ke baad :hover lagana zaroori hai */
+.watch-img img:hover {
+    transform: scale(1.15) !important;
+    transition: transform 0.4s ;
+    
+}
