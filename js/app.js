@@ -34,3 +34,53 @@
         ease: "power3.out"
     });
 
+
+// Sign In page 
+
+const loginBtn = document.querySelector('#show-login');
+const registerBtn = document.querySelector('#show-register');
+const loginForm = document.querySelector('#login-form');
+const registerForm = document.querySelector('#register-form');
+
+    registerBtn.addEventListener('click', () => {
+        // Buttons switch
+        loginBtn.classList.remove('active');
+        registerBtn.classList.add('active');
+
+        // Form Animation
+        gsap.to(loginForm, { 
+            opacity: 0, 
+            x: -20, duration: 0.3, 
+            onComplete: () => {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            gsap.fromTo(registerForm, { 
+                opacity: 0, 
+                x: 20 }, 
+                { opacity: 1, 
+                    x: 0, 
+                    duration: 0.5 });
+        }});
+    });
+
+    loginBtn.addEventListener('click', () => {
+        // Buttons switch
+        registerBtn.classList.remove('active');
+        loginBtn.classList.add('active');
+
+        // Form Animation
+        gsap.to(registerForm, { 
+            opacity: 0, 
+            x: 20, 
+            duration: 0.3, 
+            onComplete: () => {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            gsap.fromTo(loginForm, { 
+                opacity: 0, 
+                x: -20 }, 
+                { opacity: 1, 
+                    x: 0, 
+                    duration: 0.5 });
+        }});
+    });
