@@ -1,32 +1,34 @@
-// Ensure karein ke DOM load ho chuka hai
+import {signUp,signIn} from "./auth.js";
 
 
-    // 1. Watch 1 (Left se screen ke andar aaye)
+
+
+    
     gsap.from('.watch1', {
-        x: -500,          // Left side se 300px piche se shuru ho
-        opacity: 0,       // Shuru mein nazar na aaye
+        x: -500,          
+        opacity: 0,       
         duration: 2,
         ease: "power3.out"
     });
 
-    // 2. Watch 3 (Right se screen ke andar aaye)
+    
     gsap.from('.watch3', {
-        x: 500,           // Right side se 300px aage se shuru ho
+        x: 500,           
         opacity: 0,
         duration: 2,
         ease: "power3.out"
     });
 
-    // 3. Watch 2 (Center wali - Optional: oper se niche layein)
+    
     gsap.from('.watch2', {
-        y: -100,          // Oper se niche aaye
+        y: -100,          
         opacity: 0,
         duration: 1.2,
-        delay: 0.3,       // Thoda late shuru ho taake transition cool lage
+        delay: 0.3,      
         ease: "back.out(1.7)"
     });
 
-    // 4. Heading animation
+    
     gsap.from('.main-heading', {
         y: -50,
         opacity: 0,
@@ -84,3 +86,40 @@ const registerForm = document.querySelector('#register-form');
                     duration: 0.5 });
         }});
     });
+
+
+    const Iemail = document.getElementById("Iemail");
+    const Ipassword = document.getElementById("Ipassword");
+
+    const Remail = document.getElementById("Remail");
+    const Rpassword = document.getElementById("Rpassword");
+
+
+ const signInSubmit = document.querySelector('.sign-in-form button');
+const signUpSubmit = document.querySelector('.sign-up-form button');
+
+// 3. Sign In Click Handler
+signInSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const email = Iemail.value.trim();
+    const password = Ipassword.value;
+    
+    if (email && password) {
+        signIn(email, password);
+    } else {
+        alert("Please enter email and password");
+    }
+});
+
+// 4. Sign Up Click Handler
+signUpSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const email = Remail.value.trim();
+    const password = Rpassword.value;
+    
+    if (email && password) {
+        signUp(email, password);
+    } else {
+        alert("Please fill registration details");
+    }
+});
