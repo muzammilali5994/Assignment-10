@@ -44,6 +44,7 @@ const registerBtn = document.querySelector('#show-register');
 const loginForm = document.querySelector('#login-form');
 const registerForm = document.querySelector('#register-form');
 
+    if(registerBtn){
     registerBtn.addEventListener('click', () => {
         // Buttons switch
         loginBtn.classList.remove('active');
@@ -64,7 +65,8 @@ const registerForm = document.querySelector('#register-form');
                     duration: 0.5 });
         }});
     });
-
+    }
+    if(loginBtn){
     loginBtn.addEventListener('click', () => {
         // Buttons switch
         registerBtn.classList.remove('active');
@@ -86,7 +88,7 @@ const registerForm = document.querySelector('#register-form');
                     duration: 0.5 });
         }});
     });
-
+}
 
     const Iemail = document.getElementById("Iemail");
     const Ipassword = document.getElementById("Ipassword");
@@ -95,9 +97,9 @@ const registerForm = document.querySelector('#register-form');
     const Rpassword = document.getElementById("Rpassword");
 
 
- const signInSubmit = document.querySelector('.sign-in-form button');
+const signInSubmit = document.querySelector('.sign-in-form button');
 const signUpSubmit = document.querySelector('.sign-up-form button');
-
+if(signInSubmit){
 // 3. Sign In Click Handler
 signInSubmit.addEventListener('click', (e) => {
     e.preventDefault();
@@ -106,11 +108,13 @@ signInSubmit.addEventListener('click', (e) => {
     
     if (email && password) {
         signIn(email, password);
+        console.log("logged in")
     } else {
         alert("Please enter email and password");
     }
 });
-
+}
+if(signUpSubmit){
 // 4. Sign Up Click Handler
 signUpSubmit.addEventListener('click', (e) => {
     e.preventDefault();
@@ -123,3 +127,4 @@ signUpSubmit.addEventListener('click', (e) => {
         alert("Please fill registration details");
     }
 });
+}
