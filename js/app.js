@@ -1,5 +1,5 @@
 import {signUp,signIn} from "./auth.js";
-import { addProductDb } from "./database.js";
+import { addProductDb , streamProducts , deleteProduct} from "./database.js";
 
 
 
@@ -144,7 +144,7 @@ addBtn.addEventListener("click", async ()=> {
         const result = await addProductDb(pname , pprice);
             if(result.success){
             alert("Product Added Successfully!");
-            // Form clear karein
+            
             document.getElementById('p-name').value = "";
             document.getElementById('p-price').value = "";
             } else {
@@ -159,3 +159,37 @@ addBtn.addEventListener("click", async ()=> {
 
 
 
+const productListBody = document.getElementById('product-list');
+
+
+streamProducts((products) => {
+    productListBody.innerHTML = ""; 
+    
+    products.forEach((product, index) => {
+        productListBody.innerHTML += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${product.name}</td>
+                <td>${product.price}</td>
+                <td><span class="badge bg-success">Active</span></td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteItem('${product.id}')">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+});
+
+window.deleteItem = async (id) => {
+    const confirmation = confirm("Are you sure you want to delete this product?");
+    
+    if (confirmation) {
+        const result = await deleteProduct(id);
+        if (result.success) {
+            console.log("Product deleted from Firestore");
+            // No manual UI update needed, streamProducts handles it!
+        } else {
+            alert("Delete failed: " + result.error);
+        }
+    }
+};

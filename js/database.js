@@ -1,12 +1,13 @@
 import {db} from "./config.js";
-import {collection , addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import {collection , addDoc ,onSnapshot, query, orderBy, doc ,serverTimestamp,deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 
 export async function addProductDb(name,price) {
     try{
         let docdata = await addDoc(collection(db,"products"),{
             name : name,
-            price : price
+            price : price,
+            createdAt: serverTimestamp()
         })
     console.log("Document written with ID: ", docdata.id);
     return { success: true, id: docdata.id };
@@ -19,6 +20,26 @@ export async function addProductDb(name,price) {
     
 }
 
-export async function getProduct() {
-    try
+export function streamProducts(callback) {
+    const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+    
+    
+    return onSnapshot(q, (snapshot) => {
+        const products = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+        callback(products); 
+    });
+}
+
+
+export async function deleteProduct(id) {
+    try {
+        await deleteDoc(doc(db, "products", id));
+        return { success: true };
+    } catch (e) {
+        console.error("Error deleting document: ", e);
+        return { success: false, error: e };
+    }
 }
