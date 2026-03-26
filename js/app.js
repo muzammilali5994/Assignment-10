@@ -1,4 +1,6 @@
 import {signUp,signIn} from "./auth.js";
+import { addProductDb } from "./database.js";
+
 
 
 
@@ -128,3 +130,32 @@ signUpSubmit.addEventListener('click', (e) => {
     }
 });
 }
+
+
+/* Product Add  data  */
+
+const  addBtn = document.getElementById("p-add")
+addBtn.addEventListener("click", async ()=> {
+    const  pname = document.getElementById("p-name").value;
+    const  pprice = document.getElementById("p-price").value;
+
+    if(pname && pprice){
+
+        const result = await addProductDb(pname , pprice);
+            if(result.success){
+            alert("Product Added Successfully!");
+            // Form clear karein
+            document.getElementById('p-name').value = "";
+            document.getElementById('p-price').value = "";
+            } else {
+            alert("Error: " + result.error);
+            }
+    }
+    else{
+        console.log("fill both fields")
+    }
+})
+
+
+
+
