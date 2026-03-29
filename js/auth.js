@@ -12,13 +12,25 @@ const isLoginPage = window.location.pathname.includes("index.html") || window.lo
 
 // --- MONITOR AUTH STATE ---
 onAuthStateChanged(auth, (user) => {
-    const userDisplay = document.getElementById('user-display');
+    // querySelectorAll use karein taake dono Navbars ke elements update hon
+    const userDisplays = document.querySelectorAll('#user-display');
 
     if (user) {
-        if (userDisplay) userDisplay.innerText = user.email;
-        if (isLoginPage) window.location.href = "dashboard.html";
+        console.log("User is logged in:", user.email);
+        userDisplays.forEach(display => {
+            display.innerText = user.email;
+        });
+
+        // Agar user logged in hai aur login page par hai, to dashboard bhejo
+        if (isLoginPage) {
+            window.location.replace("dashboard.html");
+        }
     } else {
-        if (isDashboard) window.location.href = "index.html";
+        console.log("No user logged in.");
+        // Agar user logged in nahi hai aur dashboard par hai, to login par bhejo
+        if (isDashboard) {
+            window.location.replace("index.html");
+        }
     }
 });
 
@@ -36,12 +48,13 @@ export const signIn = (email, password) => {
         .catch(err => alert("Invalid Credentials: " + err.message));
 };
 
-// --- LOGOUT (Fixing your issue) ---
-const logoutBtn = document.getElementById('logout-btn');
-if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
+// --- LOGOUT LOGIC ---
+// Event delegation use karein taake dono logout buttons kaam karein
+document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'logout-btn') {
         signOut(auth).then(() => {
-            window.location.href = "index.html";
-        });
-    });
-}
+            console.log("Logged out successfully");
+            window.location.replace("index.html");
+        }).catch(err => alert(err.message));
+    }
+});

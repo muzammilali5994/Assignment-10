@@ -1,5 +1,5 @@
 import {db} from "./config.js";
-import {collection , addDoc ,onSnapshot, query, orderBy, doc ,serverTimestamp,deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import {collection , addDoc ,onSnapshot, query, orderBy, doc ,serverTimestamp,deleteDoc ,getCountFromServer } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 
 export async function addProductDb(name,price) {
@@ -41,5 +41,17 @@ export async function deleteProduct(id) {
     } catch (e) {
         console.error("Error deleting document: ", e);
         return { success: false, error: e };
+    }
+}
+
+
+export async function getTotalProductsCount() {
+    try {
+        const coll = collection(db, "products"); // "products" string mein hona chahiye
+        const snapshot = await getCountFromServer(coll);
+        return snapshot.data().count;
+    } catch (e) {
+        console.error("Error fetching count: ", e);
+        return 0;
     }
 }

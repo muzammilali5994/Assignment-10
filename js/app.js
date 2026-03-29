@@ -1,5 +1,5 @@
 import {signUp,signIn} from "./auth.js";
-import { addProductDb , streamProducts , deleteProduct} from "./database.js";
+import { addProductDb , streamProducts , deleteProduct , getTotalProductsCount } from "./database.js";
 
 
 
@@ -152,7 +152,7 @@ addBtn.addEventListener("click", async ()=> {
             }
     }
     else{
-        console.log("fill both fields")
+        alert("Please Fill Fields")
     }
 })
 
@@ -162,9 +162,18 @@ addBtn.addEventListener("click", async ()=> {
 const productListBody = document.getElementById('product-list');
 
 
+
+
 streamProducts((products) => {
     productListBody.innerHTML = ""; 
     
+    // ✅ Real-time Counter: Har baar jab products ki list change hogi, ye khud update hoga
+    const counterDisplay = document.getElementById('total-count-display');
+
+    if (counterDisplay) {
+        counterDisplay.innerText = products.length;
+    }
+
     products.forEach((product, index) => {
         productListBody.innerHTML += `
             <tr>
@@ -193,3 +202,5 @@ window.deleteItem = async (id) => {
         }
     }
 };
+
+
