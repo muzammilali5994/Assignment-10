@@ -1,12 +1,20 @@
 import {db} from "./config.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 import {collection , addDoc ,onSnapshot, query, orderBy, doc ,serverTimestamp,deleteDoc ,getCountFromServer } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 
-export async function addProductDb(name,price) {
+export async function addProductDb(name,price,imageFile) {
     try{
+        let imageUrl = "";
+        if (imageFile) {
+            const storageRef = ref(storage, `products/${Date.now()}_${imageFile.name}`);
+            const snapshot = await uploadBytes(storageRef, imageFile);
+            imageUrl = await getDownloadURL(snapshot.ref); // Image ka link mil gaya
+        }
         let docdata = await addDoc(collection(db,"products"),{
             name : name,
             price : price,
+            image: imageUrl,
             createdAt: serverTimestamp()
         })
     console.log("Document written with ID: ", docdata.id);

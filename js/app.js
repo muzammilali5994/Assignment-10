@@ -138,15 +138,17 @@ const  addBtn = document.getElementById("p-add")
 addBtn.addEventListener("click", async ()=> {
     const  pname = document.getElementById("p-name").value;
     const  pprice = document.getElementById("p-price").value;
+    const pimage = document.getElementById("p-image").files[0];
 
-    if(pname && pprice){
+    if(pname && pprice && pimage){
 
-        const result = await addProductDb(pname , pprice);
+        const result = await addProductDb(pname , pprice,pimage);
             if(result.success){
             alert("Product Added Successfully!");
             
             document.getElementById('p-name').value = "";
             document.getElementById('p-price').value = "";
+            document.getElementById('p-image').value = "";
             } else {
             alert("Error: " + result.error);
             }
@@ -180,6 +182,7 @@ streamProducts((products) => {
                 <td>${index + 1}</td>
                 <td>${product.name}</td>
                 <td>${product.price}</td>
+                <td><img src="${product.image || 'hero.avif'}" width="50" height="50" style="object-fit:cover; border-radius:5px;"></td>
                 <td><span class="badge bg-success">Active</span></td>
                 <td class="text-center">
                     <button class="btn btn-sm btn-outline-danger" onclick="deleteItem('${product.id}')">Delete</button>
